@@ -270,7 +270,7 @@ std::vector<std::string> TravellingTrojan(std::vector<std::string> input);
 
 In this section, we assume that a complete graph is given to you. That means each node is a neighbor of all other nodes.
 Given a vector of location ids, assume every location can reach every location in the list (Complete graph. Do not care the neighbors).
-Find the shortest route that covers all the locations and goes back to the start point. You can use either for the following heuristics (also discussed in the discussion class):
+Find the shortest route that covers all the locations and goes back to the start point. You can use either for the following heuristics (also discussed in the  class):
 
 1. [2-opt heuristic](https://en.wikipedia.org/wiki/2-opt)
 2. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/).

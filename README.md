@@ -326,6 +326,5 @@ Your README file should include two sections:
 6. Video presentation and report: 10 points.
 7. Extra credit items: Maximum of 20 points:
    1. A second shortest path algorithms (For example, you can implement both Bellman-Ford and Dijkstra): 10 points.
-   2. Implementation of FindIfThereIsCycle: 10 points.
-   3. 3-opt (If you chose to implement 2-opt for Travelling Trojan): 20 points.
-   4. 2. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/).
+   2. 3-opt (If you chose to implement 2-opt for Travelling Trojan): 20 points.
+8. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/) implementation for Travelling Trojan.

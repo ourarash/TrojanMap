@@ -80,9 +80,6 @@ class TrojanMap {
   std::pair<double, std::vector<std::string>> TravellingTrojan(
       std::vector<std::string> &location_ids);
 
-  // Extra Credit:
-  // FindIfThereIsCycle: should take a vector of Nodes (representing a
-  // subgraph), and return true/false if there is a cycle.
   //-----------------------------------------------------
 
  private:

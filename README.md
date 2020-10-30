@@ -3,7 +3,7 @@
 ## TrojanMap
 
 ![](img/TrojanMap.png)
-Red points are the places on the map. This project focuses on using data structures and graph search algorithms to build a mapping application.
+This project focuses on using data structures and graph search algorithms to build a mapping application.
 
 - Please clone the repository, look through [README.md](README.md) and fill up functions to finish in the project.
 - Please make sure that your code can run `bazel run/test`.

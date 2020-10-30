@@ -270,14 +270,13 @@ std::vector<std::string> TravellingTrojan(std::vector<std::string> input);
 
 In this section, we assume that a complete graph is given to you. That means each node is a neighbor of all other nodes.
 Given a vector of location ids, assume every location can reach every location in the list (Complete graph. Do not care the neighbors).
-Find the shortest route that covers all the locations and goes back to the start point. You can use either for the following heuristics (also discussed in the  class):
+Find the shortest route that covers all the locations and goes back to the start point. You can use either for the following heuristic (also discussed in the class):
 
-1. [2-opt heuristic](https://en.wikipedia.org/wiki/2-opt)
-2. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/).
+- [2-opt heuristic](https://en.wikipedia.org/wiki/2-opt)
 
 Show the routes on the map. For each intermediate solution, create a new plot. Your final video presentation should include the changes to your solution.
 
-We will randomly select N points in the map and run your program. 
+We will randomly select N points in the map and run your program.
 
 ```shell
 4
@@ -305,15 +304,19 @@ Please input the number of the places:7
 ![](img/TravellingTrojan.png)
 
 ## Report and Rubrics:
+
 Your final project should be checked into Github. The README of your project is your report.
 
-### Report: 
+### Report:
+
 Your README file should include two sections:
+
 1. High-level overview of your design (Use diagrams and pictures)
 2. Detailed description of each function and its time complexity.
 3. Discussion, conclusion, and lessons learned.
 
 ### Rubrics:
+
 1. Implementation of auto complete: 10 points.
 2. Implementation of GetPosition: 5 points.
 3. Implementation of shortest path: 20 points.
@@ -323,5 +326,6 @@ Your README file should include two sections:
 6. Video presentation and report: 10 points.
 7. Extra credit items: Maximum of 20 points:
    1. A second shortest path algorithms (For example, you can implement both Bellman-Ford and Dijkstra): 10 points.
-   2. 3-opt (If you chose to implement 2-opt for Travelling Trojan): 20 points.
-   3. Implementation of FindIfThereIsCycle: 10 points. 
+   2. Implementation of FindIfThereIsCycle: 10 points.
+   3. 3-opt (If you chose to implement 2-opt for Travelling Trojan): 20 points.
+   4. 2. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/).

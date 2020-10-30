@@ -32,7 +32,8 @@ class TrojanMap {
   void PlotPoint(std::string id);
   void PlotPoint(double lat, double lon);
 
-  // Given a vector of location ids draws the path (connects the points together)
+  // Given a vector of location ids draws the path (connects the points
+  // together)
   void PlotPath(std::vector<std::string> input);
 
   // Given a vector of location ids draws the points on the map (no path).
@@ -78,6 +79,10 @@ class TrojanMap {
   // path.)
   std::pair<double, std::vector<std::string>> TravellingTrojan(
       std::vector<std::string> &location_ids);
+
+  // Extra Credit:
+  // FindIfThereIsCycle: should take a vector of Nodes (representing a
+  // subgraph), and return true/false if there is a cycle.
   //-----------------------------------------------------
 
  private:

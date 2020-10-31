@@ -2,8 +2,7 @@
 
 ## TrojanMap
 > This project focuses on using data structures and graph search algorithms to build a mapping application.
-<center><img src="img/TrojanMap.png" alt="Trojan" width="500
-"/></center>
+<p align="center"><img src="img/TrojanMap.png" alt="Trojan" width="500" /></p>
 
 
 
@@ -156,7 +155,7 @@ Latitude: 34.0257 Longitude: -118.284
 **************************************************************
 ```
 
-<center><img src="img/Target.png" alt="Target" width="500"/></center>
+<p align="center"><img src="img/Target.png" alt="Target" width="500"/></p>
 
 ## Step 3: CalculateShortestPath
 
@@ -264,7 +263,7 @@ Output: ["2578244375",
 **************************************************************
 ```
 
-<center><img src="img/Routing.png" alt="Routing" width="500"/></center>
+<p align="center"><img src="img/Routing.png" alt="Routing" width="500"/></p>
 
 ## Step 4: The Travelling Trojan Problem (AKA Traveling salesman!)
 
@@ -303,10 +302,10 @@ Please input the number of the places:7
 **************************************************************
 ```
 
-<center><img src="img/Randompoints.png" alt="Randompoints" width="500"/></center>
+<p align="center"><img src="img/Randompoints.png" alt="Randompoints" width="500"/></p>
 
 
-<center><img src="img/TSP.png" alt="TSP" width="500"/></center>
+<p align="center"><img src="img/TSP.png" alt="TSP" width="500"/></p>
 
 ## Report and Rubrics:
 

@@ -40,10 +40,10 @@ void TrojanMap::PrintMenu() {
   std::cout << menu << std::endl;
   std::string input;
   getline(std::cin, input);
-  int swit = std::stoi(input);
+  char swit = input[0];
   switch (swit)
   {
-  case 1:
+  case '1':
   {
     menu =
         "**************************************************************\n"
@@ -66,7 +66,7 @@ void TrojanMap::PrintMenu() {
     PrintMenu();
     break;
   }
-  case 2:
+  case '2':
   {
     menu =
         "**************************************************************\n"
@@ -91,7 +91,7 @@ void TrojanMap::PrintMenu() {
     PrintMenu();
     break;
   }
-  case 3:
+  case '3':
   {
     menu =
         "**************************************************************\n"
@@ -122,7 +122,7 @@ void TrojanMap::PrintMenu() {
     PrintMenu();
     break;
   }
-  case 4:
+  case '4':
   {
     menu =
         "**************************************************************\n"
@@ -157,7 +157,7 @@ void TrojanMap::PrintMenu() {
     PrintMenu();
     break;
   }
-  case 5:
+  case '5':
     break;
   default:
     std::cout << "Please select 1 - 5." << std::endl;
@@ -290,6 +290,7 @@ double TrojanMap::CalculateDistance(const Node &a, const Node &b) {
 
   // where 3961 is the approximate radius of the earth at the latitude of
   // Washington, D.C., in miles
+  return pow(pow(a.lat - b.lat, 2) + pow(a.lon - b.lon, 2),0.5);
 }
 
 /**
@@ -374,20 +375,21 @@ float TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
   return sum;
 }
 
-// std::vector<std::string> TrojanMap::findPermutations(
-//     std::vector<std::string>& a) {
-//   std::sort(a.begin(), a.end());
-//   std::vector<std::string> results;
-//   float min = INT_MAX;
-//   do {
-//     float tmp = CalculatePathLength(a);
-//     if (min > tmp) {
-//       min = tmp;
-//       results = a;
-//     }
-//   } while (next_permutation(a.begin(), a.end()));
-//   return results;
-// }
+std::vector<std::string> TrojanMap::findPermutations(
+  std::vector<std::string>& a){
+  std::sort(a.begin(), a.end());
+  std::vector<std::string> results;
+  float min = INT_MAX;
+  do {
+    float tmp = CalculatePathLength(a);
+    if (min > tmp) {
+      min = tmp;
+      results = a;
+    }
+  } while (next_permutation(a.begin(), a.end()));
+  results.push_back(results[0]);
+  return results;
+}
 
 /**
  * Travelling salesman problem: Given a list of locations, return the shortest
@@ -396,11 +398,11 @@ float TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
  * @param  {std::vector<std::string>} input : a list of locations needs to visit
  * @return {std::pair<double, std::vector<std::string>>} : a pair of total distance and path
  */
-// std::pair<double, std::vector<std::string>> TrojanMap::TravellingTrojan(
-//                                     std::vector<std::string> &location_ids) {
-//   std::pair<double, std::vector<std::string>> results;
-//   res = findPermutations(location_ids);
-//   results.first = 100; // a random number
-//   results.second.push_back(res[0]);
-//   return results;
-// } 
+std::pair<double, std::vector<std::string>> TrojanMap::TravellingTrojan(
+                                    std::vector<std::string> &location_ids) {
+  std::pair<double, std::vector<std::string>> results;
+  auto res = findPermutations(location_ids);
+  results.first = 100; // a random number
+  results.second = res;
+  return results;
+} 

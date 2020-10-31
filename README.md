@@ -4,12 +4,10 @@
 > This project focuses on using data structures and graph search algorithms to build a mapping application.
 <p align="center"><img src="img/TrojanMap.png" alt="Trojan" width="500" /></p>
 
-
-
 - Please clone the repository, look through [README.md](README.md) and fill up functions to finish in the project.
 - Please make sure that your code can run `bazel run/test`.
-- In this project, you will need to fill up trojanmap.cc and add unit tests in tests in tests.
-- Do **Not** change or modify any given function headers and formats in both trojanmap.cc. Unexpected changes will result in zero credit.
+- In this project, you will need to fill up [trojanmap.cc](src/lib/trojanmap.cc) and add unit tests in tests.
+- Do **Not** change or modify any given function headers and formats in both [trojanmap.cc](src/lib/trojanmap.cc) and [trojanmap.h](src/lib/trojanmap.h). Unexpected changes will result in zero credit.
 - For coding questions, there is a **black box** testing for each question. All points are only based on passing the test cases or not (i.e. we don't grade your work by your source code). Try to do comprehensive testing before your final submission.
 - For submission, please push your solutions to Github before the deadline.
 - Deadline:
@@ -21,7 +19,7 @@
 
 ## The data Structure
 
-Each point on the map is represented by the class **Node** showns below and defined in [trojanmap.h](src/lib/trojanmap.h).
+Each point on the map is represented by the class **Node** shown below and defined in [trojanmap.h](src/lib/trojanmap.h).
 
 ```cpp
 class Node {
@@ -35,12 +33,12 @@ class Node {
 ```
 
 ---
-
-## Prerequisites:
+"-DBUILD_LIST=core,highgui,imgcodecs,imgproc"
+## Prerequisites
 
 ### OpenCV Installation
 
-For visualizations we use OpenCV library. You will use this library as blackbox and don't need to worry about the graphic details.
+For visualizations we use OpenCV library. You will use this library as a black box and don't need to worry about the graphic details.
 
 **Notice**: Installing this library may take a long time. This is only for visualization. You can still start coding even without installing this library and visualization.
 
@@ -58,6 +56,7 @@ Next, type the following, but make sure that you set the **path_to_install_folde
 
 ```shell
 cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=path_to_install_folder ..
+cmake -D BUILD_LIST=core,highgui,imgcodecs,imgproc  -D WITH_TBB=ON -D WITH_OPENMP=ON -D WITH_IPP=ON -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_EXAMPLES=OFF -D WITH_NVCUVID=ON -D WITH_CUDA=ON -D BUILD_DOCS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D WITH_CSTRIPES=ON -D WITH_OPENCL=ON -D CMAKE_INSTALL_PREFIX=/Users/max/Desktop/TrojanMap/opencv/install ..
 make install
 ```
 

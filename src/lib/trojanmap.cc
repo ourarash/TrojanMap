@@ -26,6 +26,7 @@
 // TODO (Hong Shuo): Use switch case instead of if statements.
 
 void TrojanMap::PrintMenu() {
+
   std::string menu =
       "**************************************************************\n"
       "* Select the function you want to execute.                     \n"
@@ -39,7 +40,11 @@ void TrojanMap::PrintMenu() {
   std::cout << menu << std::endl;
   std::string input;
   getline(std::cin, input);
-  if (input == "1") {
+  int swit = std::stoi(input);
+  switch (swit)
+  {
+  case 1:
+  {
     menu =
         "**************************************************************\n"
         "* 1. Autocomplete                                             \n"
@@ -59,7 +64,10 @@ void TrojanMap::PrintMenu() {
     menu = "**************************************************************\n";
     std::cout << menu << std::endl;
     PrintMenu();
-  } else if (input == "2") {
+    break;
+  }
+  case 2:
+  {
     menu =
         "**************************************************************\n"
         "* 2. Find the position                                        \n"
@@ -81,7 +89,10 @@ void TrojanMap::PrintMenu() {
     menu = "**************************************************************\n";
     std::cout << menu << std::endl;
     PrintMenu();
-  } else if (input == "3") {
+    break;
+  }
+  case 3:
+  {
     menu =
         "**************************************************************\n"
         "* 3. CalculateShortestPath                                            "
@@ -109,7 +120,10 @@ void TrojanMap::PrintMenu() {
     menu = "**************************************************************\n";
     std::cout << menu << std::endl;
     PrintMenu();
-  } else if (input == "4") {
+    break;
+  }
+  case 4:
+  {
     menu =
         "**************************************************************\n"
         "* 4. Travelling salesman problem                              \n"
@@ -131,22 +145,28 @@ void TrojanMap::PrintMenu() {
     auto results = TravellingTrojan(locations);
     menu = "*************************Results******************************\n";
     std::cout << menu;
-    if (results.size() != 0) {
-      for (auto x : results) std::cout << x << std::endl;
-      PlotPath(results);
+    if (results.second.size() != 0) {
+      std::cout << "Shortest Path distance is:" << results.first << std::endl;
+      for (auto x : results.second) std::cout << x << std::endl;
+      PlotPath(results.second);
     } else {
       std::cout << "Path size is 0" << std::endl;
     }
     menu = "**************************************************************\n";
     std::cout << menu;
     PrintMenu();
-  } else if (input == "5") {
-    return;
-  } else {
+    break;
+  }
+  case 5:
+    break;
+  default:
     std::cout << "Please select 1 - 5." << std::endl;
     PrintMenu();
+    break;
   }
 }
+
+
 /**
  * CreateGraphFromCSVFile: Read the map data from the csv file
  *
@@ -160,7 +180,7 @@ void TrojanMap::CreateGraphFromCSVFile() {
   while (getline(fin, line)) {
     std::stringstream s(line);
 
-    struct Node n;
+    Node n;
     int count = 0;
     while (getline(s, word, ',')) {
       word.erase(std::remove(word.begin(), word.end(), '\''), word.end());
@@ -248,7 +268,7 @@ std::pair<double, double> TrojanMap::GetPlotLocation(double lat, double lon) {
 }
 
 //-----------------------------------------------------
-// TODO: Implement the following:
+// TODO: Student should implement the following:
 //-----------------------------------------------------
 double TrojanMap::GetLat(std::string id) { return data[id].lat; }
 //-----------------------------------------------------
@@ -260,7 +280,7 @@ std::vector<std::string> TrojanMap::GetNeighborIDs(std::string id) {
   return data[id].neighbors;
 }
 //-----------------------------------------------------
-double TrojanMap::CalculateDistance(struct Node a, struct Node b) {
+double TrojanMap::CalculateDistance(const Node &a, const Node &b) {
   // TODO: Use Haversine Formula:
   // dlon = lon2 - lon1;
   // dlat = lat2 - lat1;
@@ -271,22 +291,23 @@ double TrojanMap::CalculateDistance(struct Node a, struct Node b) {
   // where 3961 is the approximate radius of the earth at the latitude of
   // Washington, D.C., in miles
 }
+
 /**
  * Autocomplete: Given a parital name return all the possible locations with
  * partial name as the prefix.
  *
- * @param  {std::string} input         : partial name
+ * @param  {std::string} name          : partial name
  * @return {std::vector<std::string>}  : a vector of full names
  */
-std::vector<std::string> TrojanMap::Autocomplete(std::string input) {
+std::vector<std::string> TrojanMap::Autocomplete(std::string name) {
   std::vector<std::string> results;
   for (auto x : data) {
-    if (input.size() > x.second.name.size()) continue;
-    std::string str = x.second.name.substr(0, input.size());
+    if (name.size() > x.second.name.size()) continue;
+    std::string str = x.second.name.substr(0, name.size());
     std::locale loc;
     bool flag = true;
     for (std::string::size_type i = 0; i < str.length(); ++i) {
-      if (std::toupper(input[i], loc) != std::toupper(str[i], loc)) {
+      if (std::toupper(name[i], loc) != std::toupper(str[i], loc)) {
         flag = false;
         break;
       }
@@ -299,13 +320,13 @@ std::vector<std::string> TrojanMap::Autocomplete(std::string input) {
 /**
  * GetPosition: Given a location name, return the position.
  *
- * @param  {std::string} input :
- * @return {std::pair<double,}  : (lat, lon)
+ * @param  {std::string} name          :
+ * @return {std::pair<double,double>}  : (lat, lon)
  */
-std::pair<double, double> TrojanMap::GetPosition(std::string input) {
+std::pair<double, double> TrojanMap::GetPosition(std::string name) {
   std::pair<double, double> results(-1, -1);
   for (auto x : data) {
-    if (x.second.name == input) {
+    if (x.second.name == name) {
       results.first = x.second.lat;
       results.second = x.second.lon;
       return results;
@@ -318,12 +339,12 @@ std::pair<double, double> TrojanMap::GetPosition(std::string input) {
  * CalculateShortestPath: Given 2 locations, return the shortest path which is a
  * list of id.
  *
- * @param  {std::string} location1     : start
- * @param  {std::string} location2     : goal
- * @return {std::vector<std::string>}  : path
+ * @param  {std::string} location1_name     : start
+ * @param  {std::string} location2_name     : goal
+ * @return {std::vector<std::string>}       : path
  */
 std::vector<std::string> TrojanMap::CalculateShortestPath(
-    std::string location1, std::string location2) {
+    std::string location1_name, std::string location2_name) {
   std::vector<std::string> x{
       "2578244375", "5559640911", "6787470571", "6808093910", "6808093913",
       "6808093919", "6816831441", "6813405269", "6816193784", "6389467806",
@@ -344,41 +365,42 @@ std::vector<std::string> TrojanMap::CalculateShortestPath(
   return x;
 }
 
-float TrojanMap::CalculatePathLength(std::vector<std::string> a) {
+float TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
   float sum = 0;
-  for (int i = 1; i < a.size(); i++) {
-    sum += CalculateDistance(data[a[i]], data[a[i - 1]]);
+  for (int i = 1; i < path.size(); i++) {
+    sum += CalculateDistance(data[path[i]], data[path[i - 1]]);
   }
-  sum += CalculateDistance(data[a[0]], data[a[a.size() - 1]]);
+  sum += CalculateDistance(data[path[0]], data[path[path.size() - 1]]);
   return sum;
 }
 
-std::vector<std::string> TrojanMap::findPermutations(
-    std::vector<std::string>& a) {
-  std::sort(a.begin(), a.end());
-  std::vector<std::string> results;
-  float min = INT_MAX;
-  do {
-    float tmp = CalculatePathLength(a);
-    if (min > tmp) {
-      min = tmp;
-      results = a;
-    }
-  } while (next_permutation(a.begin(), a.end()));
-  return results;
-}
+// std::vector<std::string> TrojanMap::findPermutations(
+//     std::vector<std::string>& a) {
+//   std::sort(a.begin(), a.end());
+//   std::vector<std::string> results;
+//   float min = INT_MAX;
+//   do {
+//     float tmp = CalculatePathLength(a);
+//     if (min > tmp) {
+//       min = tmp;
+//       results = a;
+//     }
+//   } while (next_permutation(a.begin(), a.end()));
+//   return results;
+// }
 
 /**
  * Travelling salesman problem: Given a list of locations, return the shortest
  * path which visit all the places and back to the start point.
  *
  * @param  {std::vector<std::string>} input : a list of locations needs to visit
- * @return {std::vector<std::string>}       : path
+ * @return {std::pair<double, std::vector<std::string>>} : a pair of total distance and path
  */
-std::vector<std::string> TrojanMap::TravellingTrojan(
-    std::vector<std::string> input) {
-  std::vector<std::string> results;
-  results = findPermutations(input);
-  results.push_back(results[0]);
-  return results;
-}
+// std::pair<double, std::vector<std::string>> TrojanMap::TravellingTrojan(
+//                                     std::vector<std::string> &location_ids) {
+//   std::pair<double, std::vector<std::string>> results;
+//   res = findPermutations(location_ids);
+//   results.first = 100; // a random number
+//   results.second.push_back(res[0]);
+//   return results;
+// } 

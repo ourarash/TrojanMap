@@ -1,16 +1,20 @@
 # EE599 Final Project - TrojanMap
 
 ## TrojanMap
+> This project focuses on using data structures and graph search algorithms to build a mapping application.
+<center>
+<img src="img/TrojanMap.png" alt="Trojan" width="500
+"/>
+</center>
 
-![](img/TrojanMap.png)
-This project focuses on using data structures and graph search algorithms to build a mapping application.
+
 
 - Please clone the repository, look through [README.md](README.md) and fill up functions to finish in the project.
 - Please make sure that your code can run `bazel run/test`.
 - In this project, you will need to fill up trojanmap.cc and add unit tests in tests in tests.
 - Do **Not** change or modify any given function headers and formats in both trojanmap.cc. Unexpected changes will result in zero credit.
-- For coding questions, there is a **black box** testing for each question. All points are only based on passing the test cases or not (i.e. we don't grade your work by your source code). So, try to do comprehensive testing before your final submission.
-- For submission, please push your answers to Github before the deadline.
+- For coding questions, there is a **black box** testing for each question. All points are only based on passing the test cases or not (i.e. we don't grade your work by your source code). Try to do comprehensive testing before your final submission.
+- For submission, please push your solutions to Github before the deadline.
 - Deadline:
   - **Video presentation**: Monday November 23rd (In the class). Each team should create a 1 to 2 minute presentation that includes: quick introduction of the team, explanation of the solution architecture (High level. Use slides and some graphs. No need to go into code details. Focus on one interesting part and explain that if you want.)
   - **Final report: Friday**, November 27th by 6:30 pm
@@ -24,11 +28,12 @@ Each point on the map is represented by the class **Node** showns below and defi
 
 ```cpp
 class Node {
-  std::string id; // A unique id assign to each point
-  double lat;     // Latitude
-  double lon;     // Longitude
-  std::string name; // Name of the location. E.g. "Bank of America".
-  std::vector<std::string> neighbors; // List of the ids of all neighbor points.
+  public:
+    std::string id; // A unique id assign to each point
+    double lat;     // Latitude
+    double lon;     // Longitude
+    std::string name; // Name of the location. E.g. "Bank of America".
+    std::vector<std::string> neighbors; // List of the ids of all neighbor points.
 };
 ```
 
@@ -96,7 +101,7 @@ If everything is correct, this menu will show up.
 **HONG Shuo TODO**: Please double check the function declarations here match the code.
 
 ```c++
-std::vector<std::string> Autocomplete(std::string input);
+std::vector<std::string> Autocomplete(std::string name);
 ```
 
 We consider the names of nodes as the locations. Implement a method to type the partial name of the location and return a list of possible locations with partial name as prefix. Please treat uppercase and lower case as the same character.
@@ -125,7 +130,7 @@ Chipotle Mexican Grill
 ## Step 2: Find the place
 
 ```c++
-std::pair<double, double> GetPosition(std::string input);
+std::pair<double, double> GetPosition(std::string name);
 ```
 
 Given a location name, return the latitude and longitude. There is no duplicate location name. Mark the locations on the map. If the location does not exists, return (-1, -1).
@@ -153,12 +158,16 @@ Latitude: 34.0257 Longitude: -118.284
 **************************************************************
 ```
 
-![](img/Target.png)
+<center>
+<img src="img/Target.png" alt="Target" width="500
+"/>
+</center>
 
 ## Step 3: CalculateShortestPath
 
 ```c++
-std::vector<std::string> CalculateShortestPath(std::string location1, std::string location2);
+  std::vector<std::string> CalculateShortestPath(std::string location1_name,
+                                                 std::string location2_name);
 ```
 
 Given 2 locations A and B, find the best route from A to B. The distance between 2 points is the euclidean distance using latitude and longitude. You can use Dijkstra algorithm or A\* algorithm. Compare the time for the different methods. Show the routes on the map. If there is no path, please return empty vector.
@@ -260,12 +269,15 @@ Output: ["2578244375",
 **************************************************************
 ```
 
-![](img/CalculateShortestPath.png)
+<center>
+<img src="img/Routing.png" alt="Routing" width="500"/>
+</center>
 
 ## Step 4: The Travelling Trojan Problem (AKA Traveling salesman!)
 
 ```c++
-std::vector<std::string> TravellingTrojan(std::vector<std::string> input);
+std::pair<double, std::vector<std::string>> TravellingTrojan(
+            std::vector<std::string> &location_ids);
 ```
 
 In this section, we assume that a complete graph is given to you. That means each node is a neighbor of all other nodes.
@@ -298,10 +310,17 @@ Please input the number of the places:7
 **************************************************************
 ```
 
-(TODO: Hong Shuo): make these smaller
-![](img/Randompoints.png)
+<center>
+<img src="img/Randompoints.png" alt="Randompoints" width="500
+"/>
 
-![](img/TravellingTrojan.png)
+</center>
+
+
+<center>
+<img src="img/TSP.png" alt="TSP" width="500
+"/>
+</center>
 
 ## Report and Rubrics:
 

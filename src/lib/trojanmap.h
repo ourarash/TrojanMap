@@ -9,23 +9,26 @@
 
 // A Node is the location of one point in the map.
 class Node {
-  // TODO: Add a constructor and a copy constructor.
-  std::string id;    // A unique id assign to each point
-  double lat;        // Latitude
-  double lon;        // Longitude
-  std::string name;  // Name of the location. E.g. "Bank of America".
-  std::vector<std::string>
-      neighbors;  // List of the ids of all neighbor points.
+  public:
+    // TODO: Add a constructor and a copy constructor.
+    std::string id;    // A unique id assign to each point
+    double lat;        // Latitude
+    double lon;        // Longitude
+    std::string name;  // Name of the location. E.g. "Bank of America".
+    std::vector<std::string>
+        neighbors;  // List of the ids of all neighbor points.
 };
 
 class TrojanMap {
  public:
   //-----------------------------------------------------
   // TODO: You do not and should not change the following functions:
-  // TODO (Hong Shuo): Add clear comment for each of these functionss
+  // TODO: (Hong Shuo): Add clear comment for each of these functions
+
   // Create the menu.
   void PrintMenu();
   // Read in the data
+
   void CreateGraphFromCSVFile();
 
   // Visualization
@@ -55,7 +58,7 @@ class TrojanMap {
   std::vector<std::string> GetNeighborIDs(std::string id);
 
   // Get the distance between 2 nodes.
-  double CalculateDistance(const struct Node &a, const struct Node &b);
+  double CalculateDistance(const Node &a, const Node &b);
 
   // Calculates the total path length for the locations inside the vector.
   float CalculatePathLength(const std::vector<std::string> &path);

@@ -2,13 +2,10 @@
 #include "src/lib/trojanmap.h"
 
 int main() {
-  // Print Hello world!
-  TrojanMap s;
-  std::cout << s.PrintHelloWorld() << std::endl;
-  
+
   TrojanMap x;
-  x.Parser();
-  x.Menu();
+  x.CreateGraphFromCSVFile();
+  x.PrintMenu();
 
   // std::cout << x.GetName("4547476733") << " " << x.GetLat("4547476733") << " " << x.GetLon("4547476733") << std::endl;
 

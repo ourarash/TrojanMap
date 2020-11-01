@@ -21,7 +21,6 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 
-
 //-----------------------------------------------------
 // TODO (Students): You do not and should not change the following functions:
 //-----------------------------------------------------
@@ -292,7 +291,7 @@ void TrojanMap::PlotPoints(std::vector<std::string> &location_ids) {
  * @param  {std::vector<std::vector<std::string>>} path_progress : the progress to get the path
  */
 void TrojanMap::CreateAnimation(std::vector<std::vector<std::string>> path_progress){
-  cv::VideoWriter video("output.avi",cv::VideoWriter::fourcc('M','J','P','G'), 10, cv::Size(1248,992));
+  cv::VideoWriter video("/Users/max/Desktop/TrojanMap/output.avi",cv::VideoWriter::fourcc('M','J','P','G'), 10, cv::Size(1248,992));
   for(auto location_ids: path_progress) {
     std::string image_path = cv::samples::findFile("src/main/input.jpg");
     cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);

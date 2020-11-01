@@ -311,10 +311,7 @@ The distance of the path is:282.221
 
 <p align="center"><img src="img/TSP.png" alt="TSP" width="500"/></p>
 
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/enMumwvLAug" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
-
+<p align="center"><img src="img/output.gif" alt="TSP videos" width="500"/></p>
 ## Report and Rubrics:
 
 Your final project should be checked into Github. The README of your project is your report.

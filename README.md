@@ -1,6 +1,7 @@
 # EE599 Final Project - TrojanMap
 
 ## TrojanMap
+
 > This project focuses on using data structures and graph search algorithms to build a mapping application.
 <p align="center"><img src="img/TrojanMap.png" alt="Trojan" width="500" /></p>
 
@@ -33,7 +34,7 @@ class Node {
 ```
 
 ---
-"-DBUILD_LIST=core,highgui,imgcodecs,imgproc"
+
 ## Prerequisites
 
 ### OpenCV Installation
@@ -50,13 +51,15 @@ git clone https://github.com/opencv/opencv.git
 cd opencv/
 mkdir build install
 cd build
+sudo apt-get install cmake libgtk2.0-dev pkg-config
+sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
 ```
 
 Next, type the following, but make sure that you set the **path_to_install_folder** to be the absolute path to the install folder under opencv.
 
 ```shell
 cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=path_to_install_folder ..
-cmake -D BUILD_LIST=core,highgui,imgcodecs,imgproc  -D WITH_TBB=ON -D WITH_OPENMP=ON -D WITH_IPP=ON -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_EXAMPLES=OFF -D WITH_NVCUVID=ON -D WITH_CUDA=ON -D BUILD_DOCS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D WITH_CSTRIPES=ON -D WITH_OPENCL=ON -D CMAKE_INSTALL_PREFIX=/Users/max/Desktop/TrojanMap/opencv/install ..
+cmake -D BUILD_LIST=core,highgui,imgcodecs,imgproc,videoio  -D WITH_TBB=ON -D WITH_OPENMP=ON -D WITH_IPP=ON -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_EXAMPLES=OFF -D WITH_NVCUVID=ON -D WITH_CUDA=ON -D BUILD_DOCS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D WITH_CSTRIPES=ON -D WITH_OPENCL=ON -D CMAKE_INSTALL_PREFIX=/Users/max/Desktop/TrojanMap/opencv/install ..
 make install
 ```
 
@@ -90,11 +93,9 @@ If everything is correct, this menu will show up.
 **************************************************************
 ```
 
-## Your task is to implement a function for each menu item.
+## Your task is to implement a function for each menu item
 
 ## Step 1: Autocomplete the location name
-
-**HONG Shuo TODO**: Please double check the function declarations here match the code.
 
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
@@ -159,8 +160,8 @@ Latitude: 34.0257 Longitude: -118.284
 ## Step 3: CalculateShortestPath
 
 ```c++
-  std::vector<std::string> CalculateShortestPath(std::string location1_name,
-                                                 std::string location2_name);
+std::vector<std::string> CalculateShortestPath(std::string location1_name,
+                                               std::string location2_name);
 ```
 
 Given 2 locations A and B, find the best route from A to B. The distance between 2 points is the euclidean distance using latitude and longitude. You can use Dijkstra algorithm or A\* algorithm. Compare the time for the different methods. Show the routes on the map. If there is no path, please return empty vector.
@@ -284,27 +285,37 @@ We will randomly select N points in the map and run your program.
 ```shell
 4
 **************************************************************
-* 4. Traveling salesman problem
+* 4. Travelling salesman problem                              
 **************************************************************
 
-TODO (Hong Shuo): Please make it clear that this is random. (both in menu text and in code)
-Please input the number of the places:7
+In this task, we will select N random points on the map and you need to find the path to travel these points and back to the start point.
+
+Please input the number of the places:10
+Calculating ...
 *************************Results******************************
-6455606408
-4019323628
-269633700
-2193435039
-5757277355
-269635546
-6805760710
-6455606408
+123571766
+1855143749
+1790748067
+6816305550
+6813379494
+3403035586
+2576235246
+2613117891
+1849116066
+6807245738
+123571766
+**************************************************************
+The distance of the path is:282.221
 **************************************************************
 ```
 
-<p align="center"><img src="img/Randompoints.png" alt="Randompoints" width="500"/></p>
-
-
 <p align="center"><img src="img/TSP.png" alt="TSP" width="500"/></p>
+
+<figure class="video_container">
+  <video autoplay mute>
+    <source src="img/output.avi" type="video/avi">
+  </video>
+</figure>
 
 ## Report and Rubrics:
 

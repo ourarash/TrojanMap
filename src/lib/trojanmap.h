@@ -10,7 +10,8 @@
 // A Node is the location of one point in the map.
 class Node {
   public:
-    // TODO: Add a constructor and a copy constructor.
+    Node(){};
+    Node(const Node &n){id = n.id; lat = n.lat; lon = n.lon; name = n.name; neighbors = n.neighbors;};
     std::string id;    // A unique id assign to each point
     double lat;        // Latitude
     double lon;        // Longitude
@@ -23,24 +24,30 @@ class TrojanMap {
  public:
   //-----------------------------------------------------
   // TODO: You do not and should not change the following functions:
-  // TODO: (Hong Shuo): Add clear comment for each of these functions
 
   // Create the menu.
   void PrintMenu();
-  // Read in the data
 
+  // Read in the data
   void CreateGraphFromCSVFile();
 
   // Visualization
+  // Given a location id, plot the point on the map.
   void PlotPoint(std::string id);
+
+  // Given a lat and lon, plot the point on the map.
   void PlotPoint(double lat, double lon);
 
-  // Given a vector of location ids draws the path (connects the points
-  // together)
-  void PlotPath(std::vector<std::string> input);
+  // Given a vector of location ids draws the path (connects the points)
+  void PlotPath(std::vector<std::string> &location_ids);
 
   // Given a vector of location ids draws the points on the map (no path).
-  void PlotPoints(std::vector<std::string> input);
+  void PlotPoints(std::vector<std::string> &location_ids);
+
+  // Create the videos of the progress to get the path
+  void CreateAnimation(std::vector<std::vector<std::string>>);
+
+  // Transform the location to the position on the map
   std::pair<double, double> GetPlotLocation(double lat, double lon);
   //-----------------------------------------------------
   // TODO: Implement these functions:
@@ -61,7 +68,7 @@ class TrojanMap {
   double CalculateDistance(const Node &a, const Node &b);
 
   // Calculates the total path length for the locations inside the vector.
-  float CalculatePathLength(const std::vector<std::string> &path);
+  double CalculatePathLength(const std::vector<std::string> &path);
 
   // Returns a vector of names given a partial name.
   std::vector<std::string> Autocomplete(std::string name);
@@ -80,11 +87,11 @@ class TrojanMap {
   // and the second member is the reordered vector of points.
   // (Notice that we don't find the optimal answer. You can return an estimated
   // path.)
-  std::pair<double, std::vector<std::string>> TravellingTrojan(
+  std::pair<double, std::vector<std::vector<std::string>>> TravellingTrojan(
       std::vector<std::string> &location_ids);
 
   //-----------------------------------------------------
-  std::vector<std::string> findPermutations(std::vector<std::string>& a);
+  std::vector<std::vector<std::string>> findPermutations(std::vector<std::string>& a);
   
  private:
   // A map of ids to Nodes.

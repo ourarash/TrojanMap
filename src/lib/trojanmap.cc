@@ -19,29 +19,33 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
+
 
 //-----------------------------------------------------
 // TODO (Students): You do not and should not change the following functions:
 //-----------------------------------------------------
-// TODO (Hong Shuo): Use switch case instead of if statements.
 
+/**
+ * PrintMenu: Create the menu
+ * 
+ */
 void TrojanMap::PrintMenu() {
 
   std::string menu =
       "**************************************************************\n"
-      "* Select the function you want to execute.                     \n"
+      "* Select the function you want to execute.                    \n"
       "* 1. Autocomplete                                             \n"
       "* 2. Find the position                                        \n"
-      "* 3. CalculateShortestPath                                              "
-      "    \n"
+      "* 3. CalculateShortestPath                                    \n"
       "* 4. Travelling salesman problem                              \n"
       "* 5. Exit                                                     \n"
       "**************************************************************\n";
   std::cout << menu << std::endl;
   std::string input;
   getline(std::cin, input);
-  char swit = input[0];
-  switch (swit)
+  char number = input[0];
+  switch (number)
   {
   case '1':
   {
@@ -129,10 +133,12 @@ void TrojanMap::PrintMenu() {
         "* 4. Travelling salesman problem                              \n"
         "**************************************************************\n";
     std::cout << menu << std::endl;
+    menu = "In this task, we will select N random points on the map and you need to find the path to travel these points and back to the start point.";
+    std::cout << menu << std::endl << std::endl;
     menu = "Please input the number of the places:";
     std::cout << menu;
-    int num;
-    std::cin >> num;
+    getline(std::cin, input);
+    int num = std::stoi(input);
     std::vector<std::string> keys;
     for (auto x : data) {
       keys.push_back(x.first);
@@ -142,18 +148,22 @@ void TrojanMap::PrintMenu() {
     for (int i = 0; i < num; i++)
       locations.push_back(keys[rand() % keys.size()]);
     PlotPoints(locations);
+    std::cout << "Calculating ..." << std::endl;
     auto results = TravellingTrojan(locations);
     menu = "*************************Results******************************\n";
     std::cout << menu;
+    CreateAnimation(results.second);
     if (results.second.size() != 0) {
-      std::cout << "Shortest Path distance is:" << results.first << std::endl;
-      for (auto x : results.second) std::cout << x << std::endl;
-      PlotPath(results.second);
+      for (auto x : results.second[results.second.size()-1]) std::cout << x << std::endl;
+      menu = "**************************************************************\n";
+      std::cout << menu;
+      std::cout << "The distance of the path is:" << results.first << std::endl;
+      PlotPath(results.second[results.second.size()-1]);
     } else {
-      std::cout << "Path size is 0" << std::endl;
+      std::cout << "The size of the path is 0" << std::endl;
     }
     menu = "**************************************************************\n";
-    std::cout << menu;
+    std::cout << menu << std::endl;
     PrintMenu();
     break;
   }
@@ -169,7 +179,7 @@ void TrojanMap::PrintMenu() {
 
 /**
  * CreateGraphFromCSVFile: Read the map data from the csv file
- *
+ * 
  */
 void TrojanMap::CreateGraphFromCSVFile() {
   std::fstream fin;
@@ -204,16 +214,26 @@ void TrojanMap::CreateGraphFromCSVFile() {
   fin.close();
 }
 
+/**
+ * PlotPoint: Given a location id, plot the point on the map
+ * 
+ * @param  {std::string} id : location id
+ */
 void TrojanMap::PlotPoint(std::string id) {
   std::string image_path = cv::samples::findFile("src/main/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
-  auto result = GetPlotLocation(GetLat(id), GetLon(id));
+  auto result = GetPlotLocation(data[id].lat, data[id].lon);
   cv::circle(img, cv::Point(result.first, result.second), DOT_SIZE,
              cv::Scalar(0, 0, 255), cv::FILLED);
   cv::imshow("TrojanMap", img);
-  cv::waitKey(0);
+  cv::waitKey(1);
 }
-
+/**
+ * PlotPoint: Given a lat and a lon, plot the point on the map
+ * 
+ * @param  {double} lat : latitude
+ * @param  {double} lon : longitude
+ */
 void TrojanMap::PlotPoint(double lat, double lon) {
   std::string image_path = cv::samples::findFile("src/main/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
@@ -222,18 +242,23 @@ void TrojanMap::PlotPoint(double lat, double lon) {
              cv::Scalar(0, 0, 255), cv::FILLED);
   cv::startWindowThread();
   cv::imshow("TrojanMap", img);
-  cv::waitKey(0);
+  cv::waitKey(1);
 }
 
-void TrojanMap::PlotPath(std::vector<std::string> input) {
+/**
+ * PlotPath: Given a vector of location ids draws the path (connects the points)
+ * 
+ * @param  {std::vector<std::string>} location_ids : path
+ */
+void TrojanMap::PlotPath(std::vector<std::string> &location_ids) {
   std::string image_path = cv::samples::findFile("src/main/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
-  auto start = GetPlotLocation(GetLat(input[0]), GetLon(input[0]));
+  auto start = GetPlotLocation(data[location_ids[0]].lat, data[location_ids[0]].lon);
   cv::circle(img, cv::Point(int(start.first), int(start.second)), DOT_SIZE,
              cv::Scalar(0, 0, 255), cv::FILLED);
-  for (int i = 1; i < input.size(); i++) {
-    auto start = GetPlotLocation(GetLat(input[i - 1]), GetLon(input[i - 1]));
-    auto end = GetPlotLocation(GetLat(input[i]), GetLon(input[i]));
+  for (auto i = 1; i < location_ids.size(); i++) {
+    auto start = GetPlotLocation(data[location_ids[i - 1]].lat, data[location_ids[i - 1]].lon);
+    auto end = GetPlotLocation(data[location_ids[i]].lat, data[location_ids[i]].lon);
     cv::circle(img, cv::Point(int(end.first), int(end.second)), DOT_SIZE,
                cv::Scalar(0, 0, 255), cv::FILLED);
     cv::line(img, cv::Point(int(start.first), int(start.second)),
@@ -242,21 +267,60 @@ void TrojanMap::PlotPath(std::vector<std::string> input) {
   }
   cv::startWindowThread();
   cv::imshow("TrojanMap", img);
-  cv::waitKey(0);
+  cv::waitKey(1);
 }
 
-void TrojanMap::PlotPoints(std::vector<std::string> input) {
+/**
+ * PlotPoints: Given a vector of location ids draws the points on the map (no path).
+ * 
+ * @param  {std::vector<std::string>} location_ids : points
+ */
+void TrojanMap::PlotPoints(std::vector<std::string> &location_ids) {
   std::string image_path = cv::samples::findFile("src/main/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
-  for (auto x : input) {
-    auto result = GetPlotLocation(GetLat(x), GetLon(x));
+  for (auto x : location_ids) {
+    auto result = GetPlotLocation(data[x].lat, data[x].lon);
     cv::circle(img, cv::Point(result.first, result.second), DOT_SIZE,
                cv::Scalar(0, 0, 255), cv::FILLED);
   }
   cv::imshow("TrojanMap", img);
-  cv::waitKey(0);
+  cv::waitKey(1);
 }
-
+/**
+ * CreateAnimation: Create the videos of the progress to get the path
+ * 
+ * @param  {std::vector<std::vector<std::string>>} path_progress : the progress to get the path
+ */
+void TrojanMap::CreateAnimation(std::vector<std::vector<std::string>> path_progress){
+  cv::VideoWriter video("output.avi",cv::VideoWriter::fourcc('M','J','P','G'), 10, cv::Size(1248,992));
+  for(auto location_ids: path_progress) {
+    std::string image_path = cv::samples::findFile("src/main/input.jpg");
+    cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
+    auto start = GetPlotLocation(data[location_ids[0]].lat, data[location_ids[0]].lon);
+    cv::circle(img, cv::Point(int(start.first), int(start.second)), DOT_SIZE,
+              cv::Scalar(0, 0, 255), cv::FILLED);
+    for (auto i = 1; i < location_ids.size(); i++) {
+      auto start = GetPlotLocation(data[location_ids[i - 1]].lat, data[location_ids[i - 1]].lon);
+      auto end = GetPlotLocation(data[location_ids[i]].lat, data[location_ids[i]].lon);
+      cv::circle(img, cv::Point(int(end.first), int(end.second)), DOT_SIZE,
+                cv::Scalar(0, 0, 255), cv::FILLED);
+      cv::line(img, cv::Point(int(start.first), int(start.second)),
+              cv::Point(int(end.first), int(end.second)), cv::Scalar(0, 255, 0),
+              LINE_WIDTH);
+    }
+    video.write(img);
+    cv::imshow("TrojanMap", img);
+    cv::waitKey(1);
+  }
+	video.release();
+}
+/**
+ * GetPlotLocation: Transform the location to the position on the map
+ * 
+ * @param  {double} lat         : latitude 
+ * @param  {double} lon         : longitude
+ * @return {std::pair<double, double>}  : position on the map
+ */
 std::pair<double, double> TrojanMap::GetPlotLocation(double lat, double lon) {
   std::pair<double, double> bottomLeft(34.01001, -118.30000);
   std::pair<double, double> upperRight(34.03302, -118.26502);
@@ -270,16 +334,46 @@ std::pair<double, double> TrojanMap::GetPlotLocation(double lat, double lon) {
 //-----------------------------------------------------
 // TODO: Student should implement the following:
 //-----------------------------------------------------
+/**
+ * GetLat: Get the latitude of a Node given its id.
+ * 
+ * @param  {std::string} id : location id
+ * @return {double}         : latitude
+ */
 double TrojanMap::GetLat(std::string id) { return data[id].lat; }
-//-----------------------------------------------------
+
+/**
+ * GetLon: Get the longitude of a Node given its id. 
+ * 
+ * @param  {std::string} id : location id
+ * @return {double}         : longitude
+ */
 double TrojanMap::GetLon(std::string id) { return data[id].lon; }
-//-----------------------------------------------------
+
+/**
+ * GetName: Get the name of a Node given its id.
+ * 
+ * @param  {std::string} id : location id
+ * @return {std::string}    : name
+ */
 std::string TrojanMap::GetName(std::string id) { return data[id].name; }
-//-----------------------------------------------------
-std::vector<std::string> TrojanMap::GetNeighborIDs(std::string id) {
-  return data[id].neighbors;
-}
-//-----------------------------------------------------
+
+/**
+ * GetNeighborIDs: Get the neighbor ids of a Node.
+ * 
+ * @param  {std::string} id            : location id
+ * @return {std::vector<std::string>}  : neighbor ids
+ */
+std::vector<std::string> TrojanMap::GetNeighborIDs(std::string id) { return data[id].neighbors; }
+
+
+/**
+ * CalculateDistance: Get the distance between 2 nodes. 
+ * 
+ * @param  {Node} a  : node a
+ * @param  {Node} b  : node b
+ * @return {double}  : distance in mile
+ */
 double TrojanMap::CalculateDistance(const Node &a, const Node &b) {
   // TODO: Use Haversine Formula:
   // dlon = lon2 - lon1;
@@ -290,7 +384,27 @@ double TrojanMap::CalculateDistance(const Node &a, const Node &b) {
 
   // where 3961 is the approximate radius of the earth at the latitude of
   // Washington, D.C., in miles
-  return pow(pow(a.lat - b.lat, 2) + pow(a.lon - b.lon, 2),0.5);
+  double dlon = b.lon - a.lon;
+  double dlat = b.lat - a.lat;
+  double x = pow(sin(dlat / 2), 2) + cos(a.lat) * cos(b.lat) * pow(sin(dlon / 2), 2);
+  double c = 2 * asin(std::min(double(1), sqrt(x)));
+  return 3961 * c;
+  // return pow(pow(a.lat - b.lat, 2) + pow(a.lon - b.lon, 2),0.5);
+}
+
+/**
+ * CalculatePathLength: Calculates the total path length for the locations inside the vector.
+ * 
+ * @param  {std::vector<std::string>} path : path
+ * @return {double}                        : path length
+ */
+double TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
+  double sum = 0;
+  for (auto i = 1; i < path.size(); i++) {
+    sum += CalculateDistance(data[path[i]], data[path[i - 1]]);
+  }
+  sum += CalculateDistance(data[path[0]], data[path[path.size() - 1]]);
+  return sum;
 }
 
 /**
@@ -321,7 +435,7 @@ std::vector<std::string> TrojanMap::Autocomplete(std::string name) {
 /**
  * GetPosition: Given a location name, return the position.
  *
- * @param  {std::string} name          :
+ * @param  {std::string} name          : location name
  * @return {std::pair<double,double>}  : (lat, lon)
  */
 std::pair<double, double> TrojanMap::GetPosition(std::string name) {
@@ -366,28 +480,20 @@ std::vector<std::string> TrojanMap::CalculateShortestPath(
   return x;
 }
 
-float TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
-  float sum = 0;
-  for (int i = 1; i < path.size(); i++) {
-    sum += CalculateDistance(data[path[i]], data[path[i - 1]]);
-  }
-  sum += CalculateDistance(data[path[0]], data[path[path.size() - 1]]);
-  return sum;
-}
-
-std::vector<std::string> TrojanMap::findPermutations(
+std::vector<std::vector<std::string>> TrojanMap::findPermutations(
   std::vector<std::string>& a){
   std::sort(a.begin(), a.end());
-  std::vector<std::string> results;
+  std::vector<std::vector<std::string>> results;
   float min = INT_MAX;
   do {
     float tmp = CalculatePathLength(a);
     if (min > tmp) {
       min = tmp;
-      results = a;
+      auto b = a;
+      b.push_back(b[0]);
+      results.push_back(b);
     }
   } while (next_permutation(a.begin(), a.end()));
-  results.push_back(results[0]);
   return results;
 }
 
@@ -396,13 +502,13 @@ std::vector<std::string> TrojanMap::findPermutations(
  * path which visit all the places and back to the start point.
  *
  * @param  {std::vector<std::string>} input : a list of locations needs to visit
- * @return {std::pair<double, std::vector<std::string>>} : a pair of total distance and path
+ * @return {std::pair<double, std::vector<std::vector<std::string>>} : a pair of total distance and the all the progress to get final path
  */
-std::pair<double, std::vector<std::string>> TrojanMap::TravellingTrojan(
+std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan(
                                     std::vector<std::string> &location_ids) {
-  std::pair<double, std::vector<std::string>> results;
+  std::pair<double, std::vector<std::vector<std::string>>> results;
   auto res = findPermutations(location_ids);
-  results.first = 100; // a random number
+  results.first = CalculatePathLength(res[res.size()-1]);
   results.second = res;
   return results;
 } 

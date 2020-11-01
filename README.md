@@ -312,9 +312,7 @@ The distance of the path is:282.221
 <p align="center"><img src="img/TSP.png" alt="TSP" width="500"/></p>
 
 <figure class="video_container">
-  <video autoplay mute>
-    <source src="img/output.avi" type="video/avi">
-  </video>
+  <iframe src="https://www.youtube.com/embed/enMumwvLAug" frameborder="0" allowfullscreen="true"> </iframe>
 </figure>
 
 ## Report and Rubrics:

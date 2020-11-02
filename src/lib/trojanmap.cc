@@ -182,7 +182,7 @@ void TrojanMap::PrintMenu() {
  */
 void TrojanMap::CreateGraphFromCSVFile() {
   std::fstream fin;
-  fin.open("src/main/map.csv", std::ios::in);
+  fin.open("src/lib/map.csv", std::ios::in);
   std::string line, word;
 
   getline(fin, line);
@@ -199,9 +199,9 @@ void TrojanMap::CreateGraphFromCSVFile() {
       if (count == 0)
         n.id = word;
       else if (count == 1)
-        n.lat = stof(word);
+        n.lat = stod(word);
       else if (count == 2)
-        n.lon = stof(word);
+        n.lon = stod(word);
       else if (count == 3)
         n.name = word;
       else
@@ -219,7 +219,7 @@ void TrojanMap::CreateGraphFromCSVFile() {
  * @param  {std::string} id : location id
  */
 void TrojanMap::PlotPoint(std::string id) {
-  std::string image_path = cv::samples::findFile("src/main/input.jpg");
+  std::string image_path = cv::samples::findFile("src/lib/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
   auto result = GetPlotLocation(data[id].lat, data[id].lon);
   cv::circle(img, cv::Point(result.first, result.second), DOT_SIZE,
@@ -234,7 +234,7 @@ void TrojanMap::PlotPoint(std::string id) {
  * @param  {double} lon : longitude
  */
 void TrojanMap::PlotPoint(double lat, double lon) {
-  std::string image_path = cv::samples::findFile("src/main/input.jpg");
+  std::string image_path = cv::samples::findFile("src/lib/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
   auto result = GetPlotLocation(lat, lon);
   cv::circle(img, cv::Point(int(result.first), int(result.second)), DOT_SIZE,
@@ -250,7 +250,7 @@ void TrojanMap::PlotPoint(double lat, double lon) {
  * @param  {std::vector<std::string>} location_ids : path
  */
 void TrojanMap::PlotPath(std::vector<std::string> &location_ids) {
-  std::string image_path = cv::samples::findFile("src/main/input.jpg");
+  std::string image_path = cv::samples::findFile("src/lib/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
   auto start = GetPlotLocation(data[location_ids[0]].lat, data[location_ids[0]].lon);
   cv::circle(img, cv::Point(int(start.first), int(start.second)), DOT_SIZE,
@@ -275,7 +275,7 @@ void TrojanMap::PlotPath(std::vector<std::string> &location_ids) {
  * @param  {std::vector<std::string>} location_ids : points
  */
 void TrojanMap::PlotPoints(std::vector<std::string> &location_ids) {
-  std::string image_path = cv::samples::findFile("src/main/input.jpg");
+  std::string image_path = cv::samples::findFile("src/lib/input.jpg");
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
   for (auto x : location_ids) {
     auto result = GetPlotLocation(data[x].lat, data[x].lon);
@@ -285,6 +285,8 @@ void TrojanMap::PlotPoints(std::vector<std::string> &location_ids) {
   cv::imshow("TrojanMap", img);
   cv::waitKey(1);
 }
+
+
 /**
  * CreateAnimation: Create the videos of the progress to get the path
  * 
@@ -293,7 +295,7 @@ void TrojanMap::PlotPoints(std::vector<std::string> &location_ids) {
 void TrojanMap::CreateAnimation(std::vector<std::vector<std::string>> path_progress){
   cv::VideoWriter video("/Users/max/Desktop/TrojanMap/output.avi",cv::VideoWriter::fourcc('M','J','P','G'), 10, cv::Size(1248,992));
   for(auto location_ids: path_progress) {
-    std::string image_path = cv::samples::findFile("src/main/input.jpg");
+    std::string image_path = cv::samples::findFile("src/lib/input.jpg");
     cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);
     auto start = GetPlotLocation(data[location_ids[0]].lat, data[location_ids[0]].lon);
     cv::circle(img, cv::Point(int(start.first), int(start.second)), DOT_SIZE,

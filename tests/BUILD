@@ -8,3 +8,30 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "trojanmap_test",
+    srcs = ["trojanmap_test.cc"],
+    deps = [
+        "//src/lib:TrojanMap",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "trojanmap_test_student",
+    srcs = ["trojanmap_test_student.cc"],
+    deps = [
+        "//src/lib:TrojanMap",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "trojanmap_test_grader",
+    srcs = ["trojanmap_test_grader.cc"],
+    deps = [
+        "//src/lib:TrojanMap",
+        "@googletest//:gtest_main",
+    ],
+)

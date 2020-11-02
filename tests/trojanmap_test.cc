@@ -6,24 +6,24 @@
 #include "gtest/gtest.h"
 
 TEST(TrojanMapTest, Autocomplete) {
-  TrojanMap m();
-  m.Parse();
+  TrojanMap m;
+  m.CreateGraphFromCSVFile();
   auto names = m.Autocomplete("Ch");
   std::vector<std::string> gt = {"ChickfilA", "Chipotle Mexican Grill"};
   EXPECT_EQ(names, gt);
 }
 
 TEST(TrojanMapTest, FindPosition) {
-  TrojanMap m();
-  m.Parse();
+  TrojanMap m;
+  m.CreateGraphFromCSVFile();
   auto position = m.GetPosition("ChickfilA");
-  std::pair<double, double> gt = (34.0167334, -118.2825307);
+  std::pair<double, double> gt(34.0167334, -118.2825307);
   EXPECT_EQ(position, gt);
 }
 
 TEST(TrojanMapTest, CalculateShortestPath) {
-  TrojanMap m();
-  m.Parse();
+  TrojanMap m;
+  m.CreateGraphFromCSVFile();
   auto path = m.CalculateShortestPath("ChickfilA", "Ralphs");
   std::vector<std::string> gt{
       "2578244375", "5559640911", "6787470571", "6808093910", "6808093913",

@@ -93,6 +93,20 @@ If everything is correct, this menu will show up.
 **************************************************************
 ```
 
+## Test the program
+
+We create some tests for you to test your program, please run
+```shell
+bazel test tests:tests:trojanmap_test
+```
+
+Please add you test in the [trojanmap_test_student.cc](tests/trojanmap_test_student.cc) and run
+
+```shell
+bazel test tests:trojanmap_test_student
+```
+
+
 ## Your task is to implement a function for each menu item
 
 ## Step 1: Autocomplete the location name

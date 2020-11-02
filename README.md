@@ -319,6 +319,7 @@ Calculating ...
 **************************************************************
 The distance of the path is:270.351
 **************************************************************
+You could find your animation at src/lib/output.avi
 ```
 
 <p align="center"><img src="img/TSP.png" alt="TSP" width="500"/></p>

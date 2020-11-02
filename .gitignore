@@ -7,3 +7,4 @@
 /bazel-*
 /opencv
 .DS_Store
+.vscode

@@ -5,6 +5,6 @@ cc_library(
     srcs = ["trojanmap.cc"],
     hdrs = ["trojanmap.h"],
     deps = ["@opencv//:opencv"],
-    data = ["map.csv", "input.jpg"],
+    data = ["map.csv", "input.jpg", "output.avi"],
     visibility = ["//visibility:public"],
 )

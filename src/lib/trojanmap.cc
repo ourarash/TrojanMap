@@ -161,7 +161,8 @@ void TrojanMap::PrintMenu() {
     } else {
       std::cout << "The size of the path is 0" << std::endl;
     }
-    menu = "**************************************************************\n";
+    menu = "**************************************************************\n"
+           "You could find your animation at src/lib/output.avi.          \n";
     std::cout << menu << std::endl;
     PrintMenu();
     break;
@@ -293,7 +294,7 @@ void TrojanMap::PlotPoints(std::vector<std::string> &location_ids) {
  * @param  {std::vector<std::vector<std::string>>} path_progress : the progress to get the path
  */
 void TrojanMap::CreateAnimation(std::vector<std::vector<std::string>> path_progress){
-  cv::VideoWriter video("/Users/max/Desktop/TrojanMap/output.avi",cv::VideoWriter::fourcc('M','J','P','G'), 10, cv::Size(1248,992));
+  cv::VideoWriter video("src/lib/output.avi", cv::VideoWriter::fourcc('M','J','P','G'), 10, cv::Size(1248,992));
   for(auto location_ids: path_progress) {
     std::string image_path = cv::samples::findFile("src/lib/input.jpg");
     cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);

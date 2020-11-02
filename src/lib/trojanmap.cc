@@ -342,7 +342,7 @@ std::pair<double, double> TrojanMap::GetPlotLocation(double lat, double lon) {
  * @param  {std::string} id : location id
  * @return {double}         : latitude
  */
-double TrojanMap::GetLat(std::string id) { return data[id].lat; }
+double TrojanMap::GetLat(std::string id) { return 0; }
 
 /**
  * GetLon: Get the longitude of a Node given its id. 
@@ -350,7 +350,7 @@ double TrojanMap::GetLat(std::string id) { return data[id].lat; }
  * @param  {std::string} id : location id
  * @return {double}         : longitude
  */
-double TrojanMap::GetLon(std::string id) { return data[id].lon; }
+double TrojanMap::GetLon(std::string id) { return 0; }
 
 /**
  * GetName: Get the name of a Node given its id.
@@ -358,7 +358,7 @@ double TrojanMap::GetLon(std::string id) { return data[id].lon; }
  * @param  {std::string} id : location id
  * @return {std::string}    : name
  */
-std::string TrojanMap::GetName(std::string id) { return data[id].name; }
+std::string TrojanMap::GetName(std::string id) { return ""; }
 
 /**
  * GetNeighborIDs: Get the neighbor ids of a Node.
@@ -366,7 +366,10 @@ std::string TrojanMap::GetName(std::string id) { return data[id].name; }
  * @param  {std::string} id            : location id
  * @return {std::vector<std::string>}  : neighbor ids
  */
-std::vector<std::string> TrojanMap::GetNeighborIDs(std::string id) { return data[id].neighbors; }
+std::vector<std::string> TrojanMap::GetNeighborIDs(std::string id) {
+    std::vector<std::string> result;
+    return result;
+}
 
 
 /**
@@ -386,12 +389,7 @@ double TrojanMap::CalculateDistance(const Node &a, const Node &b) {
 
   // where 3961 is the approximate radius of the earth at the latitude of
   // Washington, D.C., in miles
-  double dlon = b.lon - a.lon;
-  double dlat = b.lat - a.lat;
-  double x = pow(sin(dlat / 2), 2) + cos(a.lat) * cos(b.lat) * pow(sin(dlon / 2), 2);
-  double c = 2 * asin(std::min(double(1), sqrt(x)));
-  return 3961 * c;
-  // return pow(pow(a.lat - b.lat, 2) + pow(a.lon - b.lon, 2),0.5);
+  return 0;
 }
 
 /**
@@ -402,10 +400,6 @@ double TrojanMap::CalculateDistance(const Node &a, const Node &b) {
  */
 double TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
   double sum = 0;
-  for (auto i = 1; i < path.size(); i++) {
-    sum += CalculateDistance(data[path[i]], data[path[i - 1]]);
-  }
-  sum += CalculateDistance(data[path[0]], data[path[path.size() - 1]]);
   return sum;
 }
 
@@ -418,19 +412,6 @@ double TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
  */
 std::vector<std::string> TrojanMap::Autocomplete(std::string name) {
   std::vector<std::string> results;
-  for (auto x : data) {
-    if (name.size() > x.second.name.size()) continue;
-    std::string str = x.second.name.substr(0, name.size());
-    std::locale loc;
-    bool flag = true;
-    for (std::string::size_type i = 0; i < str.length(); ++i) {
-      if (std::toupper(name[i], loc) != std::toupper(str[i], loc)) {
-        flag = false;
-        break;
-      }
-    }
-    if (flag) results.push_back(x.second.name);
-  }
   return results;
 }
 
@@ -442,13 +423,6 @@ std::vector<std::string> TrojanMap::Autocomplete(std::string name) {
  */
 std::pair<double, double> TrojanMap::GetPosition(std::string name) {
   std::pair<double, double> results(-1, -1);
-  for (auto x : data) {
-    if (x.second.name == name) {
-      results.first = x.second.lat;
-      results.second = x.second.lon;
-      return results;
-    }
-  }
   return results;
 }
 
@@ -462,41 +436,8 @@ std::pair<double, double> TrojanMap::GetPosition(std::string name) {
  */
 std::vector<std::string> TrojanMap::CalculateShortestPath(
     std::string location1_name, std::string location2_name) {
-  std::vector<std::string> x{
-      "2578244375", "5559640911", "6787470571", "6808093910", "6808093913",
-      "6808093919", "6816831441", "6813405269", "6816193784", "6389467806",
-      "6816193783", "123178876",  "2613117895", "122719259",  "2613117861",
-      "6817230316", "3642819026", "6817230310", "7811699597", "5565967545",
-      "123318572",  "6813405206", "6813379482", "544672028",  "21306059",
-      "6813379476", "6818390140", "63068610",   "6818390143", "7434941012",
-      "4015423966", "5690152766", "6813379440", "6813379466", "21306060",
-      "6813379469", "6813379427", "123005255",  "6807200376", "6807200380",
-      "6813379451", "6813379463", "123327639",  "6813379460", "4141790922",
-      "4015423963", "1286136447", "1286136422", "4015423962", "6813379494",
-      "63068643",   "6813379496", "123241977",  "4399914059", "4015372478",
-      "1732243576", "6813379548", "4015372476", "4015372475", "1732243620",
-      "4015372469", "4015372463", "6819179749", "1732243544", "6813405275",
-      "348121996",  "348121864",  "6813405280", "1472141024", "4015372462",
-      "6813411586", "4015372458", "6813411588", "1837212101", "6820935911",
-      "4547476733"};
+  std::vector<std::string> x;
   return x;
-}
-
-std::vector<std::vector<std::string>> TrojanMap::findPermutations(
-  std::vector<std::string>& a){
-  std::sort(a.begin(), a.end());
-  std::vector<std::vector<std::string>> results;
-  float min = INT_MAX;
-  do {
-    float tmp = CalculatePathLength(a);
-    if (min > tmp) {
-      min = tmp;
-      auto b = a;
-      b.push_back(b[0]);
-      results.push_back(b);
-    }
-  } while (next_permutation(a.begin(), a.end()));
-  return results;
 }
 
 /**
@@ -509,8 +450,5 @@ std::vector<std::vector<std::string>> TrojanMap::findPermutations(
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan(
                                     std::vector<std::string> &location_ids) {
   std::pair<double, std::vector<std::vector<std::string>>> results;
-  auto res = findPermutations(location_ids);
-  results.first = CalculatePathLength(res[res.size()-1]);
-  results.second = res;
   return results;
 } 

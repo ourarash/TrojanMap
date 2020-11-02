@@ -91,7 +91,7 @@ class TrojanMap {
       std::vector<std::string> &location_ids);
 
   //-----------------------------------------------------
-  std::vector<std::vector<std::string>> findPermutations(std::vector<std::string>& a);
+
   
  private:
   // A map of ids to Nodes.

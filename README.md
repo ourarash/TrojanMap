@@ -12,6 +12,7 @@
 - For coding questions, there is a **black box** testing for each question. All points are only based on passing the test cases or not (i.e. we don't grade your work by your source code). Try to do comprehensive testing before your final submission.
 - For submission, please push your solutions to Github before the deadline.
 - Deadline:
+  - **Specifying team members**: You can work on the project in teams of 1 to 2 students. Please [specify your team members](https://docs.google.com/spreadsheets/d/1lkI0viun0lW3rjniwAyFGl9e8kTKXqmRoRFzzxDueSE/edit?usp=sharing) by Wednesday November 4th.
   - **Video presentation**: Monday November 23rd (In the class). Each team should create a 1 to 2 minute presentation that includes: quick introduction of the team, explanation of the solution architecture (High level. Use slides and some graphs. No need to go into code details. Focus on one interesting part and explain that if you want.)
   - **Final report: Friday**, November 27th by 6:30 pm
 - Total: 120 points. 100 points is considered full credit.

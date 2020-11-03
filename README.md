@@ -347,7 +347,7 @@ Your README file should include two sections:
    1. Animated plot: 10 points.
 5. Creating reasonable unit tests: 20 points.
 6. Video presentation and report: 10 points.
-7. Extra credit items: Maximum of 20 points:
+7. **Extra credit items**: Maximum of 20 points:
    1. A second shortest path algorithms (For example, you can implement both Bellman-Ford and Dijkstra): 10 points.
    2. 3-opt (If you chose to implement 2-opt for Travelling Trojan): 20 points.
 8. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/) implementation for Travelling Trojan.

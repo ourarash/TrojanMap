@@ -50,7 +50,7 @@ class TrojanMap {
   // Transform the location to the position on the map
   std::pair<double, double> GetPlotLocation(double lat, double lon);
   //-----------------------------------------------------
-  // TODO: Implement these functions:
+  // TODO: Implement these functions and create unit tests for them:
 
   // Get the Latitude of a Node given its id.
   double GetLat(std::string id);

@@ -286,9 +286,10 @@ std::pair<double, std::vector<std::string>> TravellingTrojan(
 
 In this section, we assume that a complete graph is given to you. That means each node is a neighbor of all other nodes.
 Given a vector of location ids, assume every location can reach every location in the list (Complete graph. Do not care the neighbors).
-Find the shortest route that covers all the locations and goes back to the start point. You can use either for the following heuristic (also discussed in the class):
+Find the shortest route that covers all the locations and goes back to the start point. We will use the following algorithms:
 
-- [2-opt heuristic](https://en.wikipedia.org/wiki/2-opt)
+- Brute Force Method
+- [2-opt Heuristic](https://en.wikipedia.org/wiki/2-opt). Also see [this paper](http://cs.indstate.edu/~zeeshan/aman.pdf)
 
 Show the routes on the map. For each intermediate solution, create a new plot. Your final video presentation should include the changes to your solution.
 
@@ -343,11 +344,13 @@ Your README file should include two sections:
 1. Implementation of auto complete: 10 points.
 2. Implementation of GetPosition: 5 points.
 3. Implementation of shortest path: 20 points.
-4. Implementation of Travelling Trojan Heuristic: 25 points (either of the heuristics.).
-   1. Animated plot: 10 points.
+4. Implementation of Travelling Trojan: 
+   1. Brute Force: 10 points
+   2. 2-opt: 15 points.
+   3. Animated plot: 10 points.
 5. Creating reasonable unit tests: 20 points.
 6. Video presentation and report: 10 points.
 7. **Extra credit items**: Maximum of 20 points:
    1. A second shortest path algorithms (For example, you can implement both Bellman-Ford and Dijkstra): 10 points.
-   2. 3-opt (If you chose to implement 2-opt for Travelling Trojan): 20 points.
-8. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/) implementation for Travelling Trojan.
+   2. [3-opt](http://cs.indstate.edu/~zeeshan/aman.pdf) (If you chose to implement 2-opt for Travelling Trojan): 20 points.
+8. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/) implementation for Travelling Trojan: 20 points.

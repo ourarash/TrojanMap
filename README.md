@@ -281,13 +281,16 @@ Output: ["2578244375",
 ## Step 4: The Travelling Trojan Problem (AKA Traveling salesman!)
 
 ```c++
-std::pair<double, std::vector<std::string>> TravellingTrojan(
-            std::vector<std::string> &location_ids);
+std::pair<double, std::vector<std::vector<std::string>>> TravellingTrojan(
+      std::vector<std::string> &location_ids);
 ```
 
 In this section, we assume that a complete graph is given to you. That means each node is a neighbor of all other nodes.
 Given a vector of location ids, assume every location can reach every location in the list (Complete graph. Do not care the neighbors).
-Find the shortest route that covers all the locations and goes back to the start point. We will use the following algorithms:
+Find the shortest route that covers all the locations and goes back to the start point. You will need to return the progress to get the shortest
+route which will be converted to a animation.  
+
+We will use the following algorithms:
 
 - Brute Force Method
 - [2-opt Heuristic](https://en.wikipedia.org/wiki/2-opt). Also see [this paper](http://cs.indstate.edu/~zeeshan/aman.pdf)

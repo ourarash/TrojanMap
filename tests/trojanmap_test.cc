@@ -24,7 +24,7 @@ TEST(TrojanMapTest, FindPosition) {
 TEST(TrojanMapTest, CalculateShortestPath) {
   TrojanMap m;
   m.CreateGraphFromCSVFile();
-  auto path = m.CalculateShortestPath("ChickfilA", "Ralphs");
+  auto path = m.CalculateShortestPath("Ralphs", "ChickfilA");
   std::vector<std::string> gt{
       "2578244375", "5559640911", "6787470571", "6808093910", "6808093913",
       "6808093919", "6816831441", "6813405269", "6816193784", "6389467806",

@@ -205,8 +205,10 @@ void TrojanMap::CreateGraphFromCSVFile() {
         n.lon = stod(word);
       else if (count == 3)
         n.name = word;
-      else
+      else {
+        word.erase(std::remove(word.begin(), word.end(), ' '), word.end());
         n.neighbors.push_back(word);
+      }
       count++;
     }
     data[n.id] = n;

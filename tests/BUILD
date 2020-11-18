@@ -7,6 +7,7 @@ cc_test(
         "//src/lib:TrojanMap",
         "@googletest//:gtest_main",
     ],
+    timeout="long",
 )
 
 cc_test(
@@ -16,6 +17,7 @@ cc_test(
         "//src/lib:TrojanMap",
         "@googletest//:gtest_main",
     ],
+    timeout="long",
 )
 
 cc_test(
@@ -25,6 +27,7 @@ cc_test(
         "//src/lib:TrojanMap",
         "@googletest//:gtest_main",
     ],
+    timeout="long",
 )
 
 cc_test(

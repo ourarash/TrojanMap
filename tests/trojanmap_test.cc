@@ -49,10 +49,14 @@ TEST(TrojanMapTest, CalculateShortestPath) {
       "6813379548", "4015372476", "4015372474", "4015372468", "4015372463", "6819179749", "1732243544",
       "6813405275", "348121996", "348121864", "6813405280", "1472141024", "6813411590", "216155217", 
       "6813411589", "1837212103", "1837212101", "6820935911", "4547476733"};
+  std::cout << "My path length: "  << m.CalculatePathLength(path) << "miles" << std::endl;
+  std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
   EXPECT_EQ(path, gt);
   
   path = m.CalculateShortestPath("ChickfilA", "Ralphs");
   std::reverse(gt.begin(),gt.end());
+  std::cout << "My path length: "  << m.CalculatePathLength(path) << "miles" << std::endl;
+  std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
   EXPECT_EQ(path, gt);
 }
 
@@ -68,10 +72,14 @@ TEST(TrojanMapTest, CalculateShortestPath2) {
       "4835551104", "4012842272", "4835551103", "123178841", "6813565313", "122814435", "6813565311", "4835551228", 
       "6813513565", "4835551090", "4835551081", "6813513564", "20400292", "5556117120", "5556117115", "4835551064", 
       "4012842277", "6813565326", "123241961", "6813565322", "4835551070", "5695236164"};
+  std::cout << "My path length: "  << m.CalculatePathLength(path) << "miles" << std::endl;
+  std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
   EXPECT_EQ(path, gt);
   
   path = m.CalculateShortestPath("Popeyes Louisiana Kitchen", "Target");
   std::reverse(gt.begin(),gt.end());
+  std::cout << "My path length: "  << m.CalculatePathLength(path) << "miles" << std::endl;
+  std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
   EXPECT_EQ(path, gt);
 }
 
@@ -80,7 +88,9 @@ TEST(TrojanMapTest, TSP) {
   m.CreateGraphFromCSVFile();
   std::vector<std::string> input{"1873056015", "6905329551", "213332060", "1931345270"};
   auto result = m.TravellingTrojan(input);
+  std::cout << "My path length: "  << result.first << "miles" << std::endl;
   std::vector<std::string> gt{"1873056015", "213332060", "1931345270", "6905329551", "1873056015"};
+  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl;
   EXPECT_EQ(gt, result.second[result.second.size()-1]);
 }
 
@@ -89,7 +99,9 @@ TEST(TrojanMapTest, TSP2) {
   m.CreateGraphFromCSVFile();
   std::vector<std::string> input{"1862312636", "7424270441", "67666219", "4015405548", "4015203110", "6807439002"};
   auto result = m.TravellingTrojan(input);
+  std::cout << "My path length: " << result.first << "miles" << std::endl;
   std::vector<std::string> gt{"1862312636", "4015405548", "4015203110", "6807439002", "7424270441", "67666219", "1862312636"};
+  std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
   EXPECT_EQ(gt, result.second[result.second.size()-1]);
 }
 
@@ -98,7 +110,9 @@ TEST(TrojanMapTest, TSP3) {
   m.CreateGraphFromCSVFile();
   std::vector<std::string> input{"123120189", "4011837229", "4011837224", "2514542032", "2514541020", "1931345270", "4015477529", "214470792", "63068532", "6807909279"};
   auto result = m.TravellingTrojan(input);
-  std::vector<std::string> gt{"123120189", "4011837224", "4011837229", "1931345270", "2514542032", "2514541020", "6807909279", "63068532", "214470792", "4015477529", "123120189"};
+  std::cout << "My path length: " <<result.first << "miles" << std::endl;
+  std::vector<std::string> gt{"123120189", "1931345270", "4011837224", "4011837229", "2514542032", "2514541020", "6807909279", "63068532", "214470792", "4015477529", "123120189"};
+  std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
   EXPECT_EQ(gt, result.second[result.second.size()-1]);
 }
 

@@ -91,7 +91,14 @@ TEST(TrojanMapTest, TSP) {
   std::cout << "My path length: "  << result.first << "miles" << std::endl;
   std::vector<std::string> gt{"1873056015", "213332060", "1931345270", "6905329551", "1873056015"};
   std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl;
-  EXPECT_EQ(gt, result.second[result.second.size()-1]);
+  bool flag = false;
+  if (gt == result.second[result.second.size()-1])
+    flag = true;
+  std::reverse(gt.begin(),gt.end());
+  if (gt == result.second[result.second.size()-1])
+    flag = true;
+  
+  EXPECT_EQ(flag, true);
 }
 
 TEST(TrojanMapTest, TSP2) {
@@ -102,7 +109,14 @@ TEST(TrojanMapTest, TSP2) {
   std::cout << "My path length: " << result.first << "miles" << std::endl;
   std::vector<std::string> gt{"1862312636", "4015405548", "4015203110", "6807439002", "7424270441", "67666219", "1862312636"};
   std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
-  EXPECT_EQ(gt, result.second[result.second.size()-1]);
+  bool flag = false;
+  if (gt == result.second[result.second.size()-1])
+    flag = true;
+  std::reverse(gt.begin(),gt.end());
+  if (gt == result.second[result.second.size()-1])
+    flag = true;
+  
+  EXPECT_EQ(flag, true);
 }
 
 TEST(TrojanMapTest, TSP3) {
@@ -113,6 +127,13 @@ TEST(TrojanMapTest, TSP3) {
   std::cout << "My path length: " <<result.first << "miles" << std::endl;
   std::vector<std::string> gt{"123120189", "1931345270", "4011837224", "4011837229", "2514542032", "2514541020", "6807909279", "63068532", "214470792", "4015477529", "123120189"};
   std::cout << "GT path length: " << m.CalculatePathLength(gt) << "miles" << std::endl;
-  EXPECT_EQ(gt, result.second[result.second.size()-1]);
+  bool flag = false;
+  if (gt == result.second[result.second.size()-1])
+    flag = true;
+  std::reverse(gt.begin(),gt.end());
+  if (gt == result.second[result.second.size()-1])
+    flag = true;
+  
+  EXPECT_EQ(flag, true);
 }
 

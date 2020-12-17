@@ -8,14 +8,6 @@
 - Please clone the repository, look through [README.md](README.md) and fill up functions to finish in the project.
 - Please make sure that your code can run `bazel run/test`.
 - In this project, you will need to fill up [trojanmap.cc](src/lib/trojanmap.cc) and add unit tests in tests.
-- Do **Not** change or modify any given functions that are specified not to change in [trojanmap.cc](src/lib/trojanmap.cc) and [trojanmap.h](src/lib/trojanmap.h). Unexpected changes will result in zero credit. Only modify and complete the functions that are specified.
-- For coding questions, there is a **black box** testing for each question. All points are only based on passing the tests (i.e. we don't grade your work by your source code). Try to do comprehensive testing before your final submission.
-- For submission, please push your solutions to your own Github before the deadline.
-- **Due Dates**:
-  - **Specifying team members**: You can work on the project in teams of 1 to 2 students. Please [specify your team members](https://docs.google.com/spreadsheets/d/1lkI0viun0lW3rjniwAyFGl9e8kTKXqmRoRFzzxDueSE/edit?usp=sharing) by Wednesday November 4th.
-  - **Video presentation**: Monday November 23rd (In the class). Each team should create a 1 to 2 minute presentation that includes: quick introduction of the team, explanation of the solution architecture (High level. Use slides and some graphs. No need to go into code details. Focus on one interesting part and explain that if you want). You can refer to the [sample videos from the previous semester](https://github.com/ourarash/EE599_SP2020_Final_Project).
-  - **Final report: Friday**, November 27th by 6:30 pm
-- Total: 120 points. 100 points is considered full credit.
 
 ---
 
@@ -115,7 +107,7 @@ Please add you test in the [trojanmap_test_student.cc](tests/trojanmap_test_stud
 bazel test tests:trojanmap_test_student
 ```
 
-## Your task is to implement a function for each menu item
+## First task is to implement a function for each menu item
 
 ## Step 1: Autocomplete the location name
 
@@ -146,7 +138,7 @@ Chipotle Mexican Grill
 **************************************************************
 ```
 
-## Step 2: Find the place
+## Step 2: Find the place's Cordinates in the Map
 
 ```c++
 std::pair<double, double> GetPosition(std::string name);
@@ -179,7 +171,7 @@ Latitude: 34.0257 Longitude: -118.284
 
 <p align="center"><img src="img/Target.png" alt="Target" width="500"/></p>
 
-## Step 3: CalculateShortestPath
+## Step 3: CalculateShortestPath between two places
 
 ```c++
 std::vector<std::string> CalculateShortestPath(std::string location1_name,
